@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHOST Protocol — From Idea to Impact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal: #0E7C7B;
+  --teal-dk: #075454;
+  --teal-lt: #B8E0DD;
+  --teal-mist: #EAF5F4;
+  --ink: #1A2233;
+  --ink2: #445063;
+  --ink3: #6B7383;
+  --bg: #FBFAF7;
+  --card: #FFFFFF;
+  --line: #E2E0DA;
+  --line-dk: #C9C6BD;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --green: #047857;
+  --green-bg: #ECFDF5;
+  --amber: #D97706;
+  --shadow-sm: 0 1px 3px rgba(15,30,45,0.04), 0 1px 2px rgba(15,30,45,0.06);
+  --shadow-md: 0 4px 14px rgba(15,30,45,0.06), 0 2px 6px rgba(15,30,45,0.04);
+  --shadow-lg: 0 18px 40px rgba(15,30,45,0.10), 0 6px 14px rgba(15,30,45,0.06);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'IBM Plex Sans', system-ui, sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ------- HEADER ------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,250,247,0.92);
+  backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1200px;margin:0 auto;
+  padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:0.04em;font-size:14px;color:var(--ink)}
+.brand-mark{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--teal);
+  position:relative;display:inline-block;
+}
+.brand-mark::before, .brand-mark::after{
+  content:"";position:absolute;background:#fff;border-radius:50%;
+}
+.brand-mark::before{width:5px;height:6px;top:8px;left:7px}
+.brand-mark::after{width:5px;height:6px;top:8px;right:7px}
+.topnav{display:flex;gap:28px;font-size:13px;color:var(--ink2)}
+.topnav a{color:var(--ink2);text-decoration:none;transition:color .2s}
+.topnav a:hover{color:var(--teal)}
+@media (max-width:720px){.topnav{display:none}}
+
+/* ------- HERO ------- */
+.hero{
+  background:var(--teal-dk);
+  color:#fff;
+  padding:80px 32px 96px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;
+  width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle, rgba(184,224,221,0.15) 0%, transparent 70%);
+  top:-100px;right:-120px;
+  pointer-events:none;
+}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.hero-inner{grid-template-columns:1fr}}
+.hero-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.18em;
+  color:var(--teal-lt);text-transform:uppercase;margin-bottom:24px;
+}
+.hero h1{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(48px, 8vw, 96px);
+  line-height:0.95;letter-spacing:-0.02em;
+  margin-bottom:8px;
+}
+.hero h1 strong{font-weight:600;font-style:italic;font-variation-settings:"opsz" 144}
+.hero-sub{
+  font-size:20px;color:var(--teal-lt);
+  margin:32px 0 12px;font-weight:300;
+  max-width:520px;
+}
+.hero-tagline{
+  font-family:'Fraunces',Georgia,serif;
+  font-style:italic;font-size:18px;color:#fff;opacity:0.85;
+  margin-top:12px;
+}
+.hero-rule{width:48px;height:2px;background:var(--teal-lt);margin:28px 0 0}
+.hero-team{margin-top:48px;font-size:13px;letter-spacing:0.02em;color:var(--teal-lt)}
+.hero-team-label{font-size:10px;font-weight:600;letter-spacing:0.2em;color:rgba(184,224,221,0.7);margin-bottom:6px}
+
+/* Hero ghost */
+.ghost-art{
+  position:relative;width:100%;aspect-ratio:1/1;
+  max-width:340px;margin-left:auto;
+}
+.ghost-ring-1, .ghost-ring-2{
+  position:absolute;inset:0;border-radius:50%;
+}
+.ghost-ring-1{background:rgba(14,124,123,0.5);}
+.ghost-ring-2{
+  inset:14%;background:rgba(184,224,221,0.45);
+}
+.ghost-body{
+  position:absolute;left:30%;top:25%;width:40%;height:55%;
+  background:#fff;
+  border-radius:48% 48% 12% 12% / 60% 60% 12% 12%;
+}
+.ghost-body::after{
+  content:"";position:absolute;left:-2px;right:-2px;bottom:-12px;height:18px;
+  background:radial-gradient(ellipse at 16% 50%, #fff 38%, transparent 41%) 0 0/33.33% 100% repeat-x;
+}
+.ghost-eye{
+  position:absolute;width:8%;height:9%;background:var(--teal-dk);border-radius:50%;
+  top:36%;
+}
+.ghost-eye.l{left:38%}
+.ghost-eye.r{right:38%}
+.ghost-blush{
+  position:absolute;width:6%;height:4%;background:rgba(217,119,6,0.4);border-radius:50%;
+  top:46%;
+}
+.ghost-blush.l{left:34%}
+.ghost-blush.r{right:34%}
+@media (max-width:860px){.ghost-art{max-width:240px;margin:32px auto 0}}
+
+/* ------- SECTION SHELL ------- */
+.section{padding:96px 32px;position:relative}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.2em;
+  color:var(--teal);text-transform:uppercase;margin-bottom:18px;
+}
+.section h2{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:400;
+  font-size:clamp(32px, 4.5vw, 52px);
+  line-height:1.1;letter-spacing:-0.015em;
+  color:var(--ink);
+  margin-bottom:24px;
+  max-width:780px;
+}
+.section h2 em{font-style:italic;color:var(--teal)}
+.section-lede{
+  font-size:19px;color:var(--ink2);max-width:680px;
+  margin-bottom:48px;
+  font-weight:300;
+}
+
+/* Two-column tension */
+.tension-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+@media (max-width:760px){.tension-grid{grid-template-columns:1fr}}
+.tension-card{
+  background:var(--card);border:1px solid var(--line);
+  border-left:4px solid var(--teal);
+  padding:32px;border-radius:6px;
+  box-shadow:var(--shadow-sm);
+}
+.tension-card.wall{border-left-color:var(--red)}
+.tc-label{
+  font-size:10px;font-weight:600;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:10px;
+}
+.tension-card.wall .tc-label{color:var(--red)}
+.tc-title{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:24px;font-weight:500;
+  color:var(--ink);margin-bottom:16px;line-height:1.2;
+}
+.tc-list{list-style:none;padding:0;margin:0}
+.tc-list li{
+  padding:8px 0 8px 22px;color:var(--ink2);font-size:15px;
+  position:relative;line-height:1.5;
+}
+.tc-list li::before{
+  content:"";position:absolute;left:0;top:14px;
+  width:8px;height:2px;background:var(--teal);
+}
+.tension-card.wall .tc-list li::before{background:var(--red)}
+
+.shadow-banner{
+  margin-top:32px;
+  background:var(--teal-dk);color:#fff;
+  padding:18px 28px;border-radius:6px;
+  font-style:italic;font-size:16px;text-align:center;
+  font-family:'Fraunces',Georgia,serif;
+}
+
+/* The Insight section — flip */
+.insight-grid{
+  display:grid;grid-template-columns:1fr 1.4fr;gap:64px;
+  align-items:center;margin-top:48px;
+}
+@media (max-width:760px){.insight-grid{grid-template-columns:1fr;gap:32px}}
+.zero-stat{text-align:center}
+.zero-num{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;font-size:clamp(140px, 22vw, 240px);
+  color:var(--teal);line-height:1;
+  font-feature-settings:"lnum";
+}
+.zero-label{
+  font-size:13px;font-weight:500;letter-spacing:0.1em;
+  color:var(--ink2);text-transform:uppercase;margin-top:12px;
+}
+.principle-name{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:500;font-size:36px;letter-spacing:-0.01em;
+  color:var(--ink);margin-bottom:8px;line-height:1.1;
+}
+.principle-desc{font-size:16px;color:var(--ink2);font-style:italic;margin-bottom:28px}
+.flow-row{
+  background:var(--red-bg);border:1px solid #FECACA;
+  padding:18px 22px;border-radius:6px;margin-bottom:14px;
+  font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink);
+}
+.flow-row.after{background:var(--green-bg);border-color:#A7F3D0}
+.flow-tag{
+  display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.18em;
+  margin-bottom:6px;color:var(--red);
+}
+.flow-row.after .flow-tag{color:var(--green)}
+.insight-note{
+  margin-top:22px;color:var(--ink2);font-size:14px;font-style:italic;
+}
+
+/* Pipeline */
+.pipeline{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:8px;
+}
+@media (max-width:760px){.pipeline{grid-template-columns:repeat(4,1fr)}}
+.step{
+  background:var(--card);border:1px solid var(--line);
+  padding:14px 8px 12px;text-align:center;border-radius:4px;
+  position:relative;transition:transform .15s;
+}
+.step.human{
+  background:var(--teal);color:#fff;border-color:var(--teal);
+}
+.step:hover{transform:translateY(-2px)}
+.step-icon{
+  width:38px;height:38px;margin:2px auto 8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.step-num{
+  font-size:9px;font-weight:600;letter-spacing:0.2em;
+  color:var(--ink3);margin-bottom:4px;
+}
+.step.human .step-num{color:var(--teal-lt)}
+.step-label{
+  font-size:11px;font-weight:600;color:var(--ink);
+  line-height:1.25;
+}
+.step.human .step-label{color:#fff}
+.step.human::after{
+  content:"";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  width:18px;height:3px;background:var(--teal);border-radius:2px;
+}
+
+.gate-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+@media (max-width:760px){.gate-cards{grid-template-columns:1fr}}
+.gate-card{
+  background:var(--card);border:1px solid var(--line);
+  padding:24px;border-radius:6px;
+}
+.gate-card-h{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:20px;font-weight:500;color:var(--teal);margin-bottom:10px;
+}
+.gate-card-b{font-size:14px;color:var(--ink2);line-height:1.55}
+
+/* Demo */
+.demo-section{background:linear-gradient(180deg, var(--teal-mist) 0%, var(--bg) 90%)}
+.demo-grid{
+  display:grid;grid-template-columns:1fr 36px 1fr;gap:24px;
+  align-items:start;margin-top:32px;
+}
+@media (max-width:760px){.demo-grid{grid-template-columns:1fr;gap:16px}}
+.demo-panel{
+  background:var(--card);border:1px solid var(--line);
+  padding:28px;border-radius:6px;
+  font-family:'IBM Plex Mono',monospace;font-size:14px;
+  line-height:1.7;
+  box-shadow:var(--shadow-md);
+}
+.demo-panel.after{border:1.5px solid var(--green)}
+.demo-panel-h{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:0.2em;
+  color:var(--ink3);text-transform:uppercase;
+  margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--line);
+}
+.demo-panel.after .demo-panel-h{color:var(--green)}
+.phi{color:var(--red);font-weight:500;background:var(--red-bg);padding:1px 4px;border-radius:3px}
+.redacted{color:var(--green);font-weight:500;background:var(--green-bg);padding:1px 4px;border-radius:3px;font-size:13px}
+.demo-arrow{
+  display:flex;align-items:center;justify-content:center;height:100%;
+  color:var(--teal);font-size:32px;font-weight:300;
+  padding-top:60px;
+}
+@media (max-width:760px){.demo-arrow{padding:0;font-size:24px;transform:rotate(90deg)}}
+
+.risk-strip{
+  margin-top:24px;background:var(--teal-dk);color:#fff;
+  padding:14px 24px;border-radius:6px;
+  font-size:13px;font-weight:500;letter-spacing:0.04em;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  text-align:center;
+}
+.risk-strip > span{display:inline-flex;align-items:center;gap:8px}
+.risk-strip strong{color:var(--teal-lt);font-size:11px;letter-spacing:0.16em}
+
+/* Responsible AI */
+.pillar-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;
+}
+@media (max-width:880px){.pillar-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.pillar-grid{grid-template-columns:1fr}}
+.pillar{
+  background:var(--card);border:1px solid var(--line);
+  padding:26px;border-radius:6px;
+  transition:border-color .2s,transform .15s;
+}
+.pillar:hover{border-color:var(--teal-lt);transform:translateY(-2px)}
+.pillar-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--teal-mist);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+  font-size:18px;
+}
+.pillar-h{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:20px;font-weight:500;color:var(--ink);margin-bottom:10px;
+}
+.pillar-b{font-size:14px;color:var(--ink2);line-height:1.6}
+
+/* Impact */
+.impact-section{background:var(--ink)}
+.impact-section .section-eyebrow{color:var(--teal-lt)}
+.impact-section h2{color:#fff}
+.impact-section h2 em{color:var(--teal-lt)}
+.impact-section .section-lede{color:rgba(255,255,255,0.7)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+@media (max-width:760px){.stats-grid{grid-template-columns:1fr}}
+.stat-card{
+  background:var(--teal-dk);
+  padding:36px 28px;border-radius:6px;text-align:center;
+  border:1px solid rgba(184,224,221,0.15);
+}
+.stat-num{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:400;font-size:64px;color:#fff;line-height:1;margin-bottom:14px;
+}
+.stat-label{
+  font-size:14px;font-weight:500;color:var(--teal-lt);
+  margin-bottom:6px;
+}
+.stat-sub{font-size:12px;color:rgba(184,224,221,0.7);font-style:italic}
+
+.reuse-band{
+  margin-top:64px;text-align:center;
+}
+.reuse-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.22em;
+  color:var(--teal-lt);text-transform:uppercase;margin-bottom:18px;
+}
+.reuse-h{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:24px;font-weight:400;color:#fff;margin-bottom:28px;font-style:italic;
+}
+.reuse-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:760px){.reuse-grid{grid-template-columns:repeat(2,1fr)}}
+.reuse-pill{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(184,224,221,0.2);
+  padding:14px;border-radius:6px;
+  text-align:center;
+}
+.reuse-name{font-size:13px;font-weight:600;color:var(--teal-lt);margin-bottom:4px;letter-spacing:0.04em}
+.reuse-desc{font-size:11px;color:rgba(255,255,255,0.6)}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+@media (max-width:760px){.tech-grid{grid-template-columns:1fr}}
+.tech-col{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tech-col-h{
+  background:var(--teal);color:#fff;
+  padding:14px 22px;font-size:11px;font-weight:600;letter-spacing:0.18em;
+  text-transform:uppercase;text-align:center;
+}
+.tech-col.prod .tech-col-h{background:var(--ink)}
+.tech-row{
+  display:grid;grid-template-columns:140px 1fr;gap:18px;
+  padding:14px 22px;border-bottom:1px solid var(--line);
+  font-size:14px;align-items:center;
+}
+.tech-row:last-child{border-bottom:0}
+.tech-row dt{font-weight:600;color:var(--ink2);font-size:13px}
+.tech-row dd{color:var(--ink)}
+
+.tech-note{
+  margin-top:24px;background:var(--teal-mist);color:var(--teal-dk);
+  padding:14px 22px;border-radius:6px;
+  font-size:14px;font-weight:500;font-style:italic;text-align:center;
+}
+
+/* Demo card script preview */
+.script-bites{margin-top:36px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:760px){.script-bites{grid-template-columns:1fr}}
+.bite{
+  background:var(--card);border:1px solid var(--line);
+  padding:22px;border-radius:6px;
+  border-top:3px solid var(--teal);
+}
+.bite-time{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;color:var(--teal);font-weight:500;margin-bottom:6px;
+}
+.bite-h{
+  font-family:'Fraunces',Georgia,serif;font-size:18px;font-weight:500;
+  color:var(--ink);margin-bottom:10px;
+}
+.bite-q{
+  font-style:italic;font-size:14px;color:var(--ink2);line-height:1.5;
+}
+
+/* Final */
+.final{
+  background:var(--teal-dk);color:#fff;text-align:center;
+  padding:120px 32px;
+}
+.final-ghost{
+  width:90px;height:90px;border-radius:50%;background:var(--teal);
+  margin:0 auto 36px;position:relative;
+}
+.final-ghost::before{
+  content:"";position:absolute;left:30%;top:25%;width:40%;height:55%;
+  background:#fff;border-radius:48% 48% 12% 12% / 60% 60% 12% 12%;
+}
+.final-eye-l, .final-eye-r{
+  position:absolute;width:7%;height:8%;background:var(--teal-dk);border-radius:50%;
+  top:36%;z-index:2;
+}
+.final-eye-l{left:39%}
+.final-eye-r{right:39%}
+.final h2{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;font-size:clamp(36px, 5vw, 56px);
+  line-height:1.15;letter-spacing:-0.01em;
+  color:#fff;margin-bottom:8px;max-width:880px;margin-inline:auto;
+}
+.final h2 em{font-style:italic;font-weight:600;color:var(--teal-lt)}
+.final-tag{
+  font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:18px;
+  color:var(--teal-lt);margin-top:36px;
+}
+.final-team{
+  margin-top:48px;font-size:12px;letter-spacing:0.16em;
+  color:rgba(184,224,221,0.7);
+}
+
+footer{
+  padding:32px;text-align:center;
+  font-size:12px;color:var(--ink3);
+  border-top:1px solid var(--line);
+}
+
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>GHOST PROTOCOL</span>
+    </div>
+    <nav class="topnav">
+      <a href="#tension">The tension</a>
+      <a href="#insight">The insight</a>
+      <a href="#solution">The solution</a>
+      <a href="#demo">Demo</a>
+      <a href="#impact">Impact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">AI Booth Expo · Women in Tech Summit · Responsible AI in Healthcare</div>
+      <h1>GHOST<br><strong>Protocol</strong></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">A PHI-safe AI assistant for healthcare — built so the model never sees what it doesn't need to.</p>
+      <p class="hero-tagline">"Your PHI was here. Now it's a ghost."</p>
+      <div class="hero-team">
+        <div class="hero-team-label">TEAM</div>
+        Shweta Chandra · Bharath Kilari · Justin Job · Lokesh Raj
+      </div>
+    </div>
+    <div class="ghost-art" aria-hidden="true">
+      <div class="ghost-ring-1"></div>
+      <div class="ghost-ring-2"></div>
+      <div class="ghost-body"></div>
+      <div class="ghost-eye l"></div>
+      <div class="ghost-eye r"></div>
+      <div class="ghost-blush l"></div>
+      <div class="ghost-blush r"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE TENSION
+============================================================ -->
+<section class="section" id="tension">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">The tension</div>
+    <h2>Healthcare wants GenAI.<br><em>Compliance won't let it in.</em></h2>
+    <p class="section-lede">Clinicians have a use case waiting at every desk. The compliance officer has a stack of reasons to say no — and most of them are valid. The result is a quiet stalemate, and a quieter problem underneath it.</p>
+
+    <div class="tension-grid">
+      <div class="tension-card">
+        <div class="tc-label">The demand</div>
+        <div class="tc-title">Clinicians want AI now</div>
+        <ul class="tc-list">
+          <li>Summarize discharge notes in seconds, not minutes</li>
+          <li>Draft referral letters from rough notes</li>
+          <li>Spot abnormal trends in lab panels at a glance</li>
+          <li>Translate patient instructions into 5+ languages</li>
+        </ul>
+      </div>
+      <div class="tension-card wall">
+        <div class="tc-label">The wall</div>
+        <div class="tc-title">Compliance says "not yet"</div>
+        <ul class="tc-list">
+          <li>PHI exposure: every prompt is a potential leak</li>
+          <li>HIPAA penalties: up to $1.5M per violation per year</li>
+          <li>Vendor BAAs: slow, expensive, often blocking</li>
+          <li>No audit trail = no defense in a breach</li>
+        </ul>
+      </div>
+    </div>
+    <div class="shadow-banner">
+      Result: shadow AI. Clinicians paste PHI into public chatbots — and no one is watching.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE INSIGHT
+============================================================ -->
+<section class="section" id="insight" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">The insight</div>
+    <h2>Don't trust the model with PHI.<br><em>Never send it.</em></h2>
+    <p class="section-lede">Almost every "responsible AI" approach assumes data has to reach the model first. We inverted the assumption.</p>
+    <div class="insight-grid">
+      <div class="zero-stat">
+        <div class="zero-num">0</div>
+        <div class="zero-label">PHI tokens leave the browser</div>
+      </div>
+      <div>
+        <div class="principle-name">Redact-then-Reason</div>
+        <p class="principle-desc">A simple inversion of the usual pattern.</p>
+
+        <div class="flow-row">
+          <div class="flow-tag">BEFORE</div>
+          PHI &nbsp;→&nbsp; Cloud LLM &nbsp;→&nbsp; Hope nothing leaks
+        </div>
+        <div class="flow-row after">
+          <div class="flow-tag">GHOST PROTOCOL</div>
+          PHI &nbsp;→&nbsp; Browser-side scrub &nbsp;→&nbsp; [REDACTED] &nbsp;→&nbsp; LLM
+        </div>
+        <p class="insight-note">The model only sees [REDACTED]. The clinician sees real names. The audit log proves it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE SOLUTION
+============================================================ -->
+<section class="section" id="solution">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">The solution</div>
+    <h2>An 8-step pipeline.<br><em>Three human gates.</em></h2>
+    <p class="section-lede">Most AI tools have one human checkpoint, if any. We have three. Each one catches a different class of failure — that's not friction, that's defense in depth.</p>
+
+    <div class="pipeline">
+      <div class="step"><div class="step-icon">📝</div><div class="step-num">01</div><div class="step-label">Input</div></div>
+      <div class="step"><div class="step-icon">🔍</div><div class="step-num">02</div><div class="step-label">Scan</div></div>
+      <div class="step human"><div class="step-icon">👤</div><div class="step-num">03</div><div class="step-label">Review<br>Findings</div></div>
+      <div class="step"><div class="step-icon">🛡️</div><div class="step-num">04</div><div class="step-label">Redact</div></div>
+      <div class="step human"><div class="step-icon">👤</div><div class="step-num">05</div><div class="step-label">Approve<br>Sanitized</div></div>
+      <div class="step"><div class="step-icon">🤖</div><div class="step-num">06</div><div class="step-label">AI<br>Process</div></div>
+      <div class="step human"><div class="step-icon">👤</div><div class="step-num">07</div><div class="step-label">Review<br>Output</div></div>
+      <div class="step"><div class="step-icon">✅</div><div class="step-num">08</div><div class="step-label">Approved</div></div>
+    </div>
+
+    <div class="gate-cards">
+      <div class="gate-card">
+        <div class="gate-card-h">Three Human Gates</div>
+        <p class="gate-card-b">PHI findings, sanitized text, and AI output each require explicit human approval before the next step. Nothing gets exported without all three.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-card-h">Browser-Side Scrub</div>
+        <p class="gate-card-b">Detection and redaction run client-side. PHI literally cannot reach the cloud — by architecture, not by promise.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-card-h">Audit by Default</div>
+        <p class="gate-card-b">Every action timestamped. Exportable as a compliance log. Defensible in any HIPAA review, with no extra steps for the clinician.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LIVE DEMO
+============================================================ -->
+<section class="section demo-section" id="demo">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">Live demo</div>
+    <h2>Watch a discharge note <em>become a ghost.</em></h2>
+    <p class="section-lede">Real-shaped clinical data on the left. What the language model actually receives on the right. The clinician's view of the original is unchanged.</p>
+
+    <div class="demo-grid">
+      <div class="demo-panel">
+        <div class="demo-panel-h">Clinical input</div>
+        <p>Patient <span class="phi">John Smith</span>, DOB <span class="phi">03/15/1962</span>, MRN <span class="phi">MRN-7842913</span>, SSN <span class="phi">123-45-6789</span>.</p>
+        <p style="margin-top:12px">Admitted <span class="phi">04/12/2026</span> for acute MI. Procedure performed by Dr. <span class="phi">Priya Menon</span> at <span class="phi">Adventist Health Glendale</span>.</p>
+        <p style="margin-top:12px">Discharge stable. Follow-up cardiology in 2 weeks.</p>
+      </div>
+      <div class="demo-arrow" aria-hidden="true">→</div>
+      <div class="demo-panel after">
+        <div class="demo-panel-h">What the LLM sees</div>
+        <p>Patient <span class="redacted">[REDACTED-NAME]</span>, DOB <span class="redacted">[REDACTED-DOB]</span>, MRN <span class="redacted">[REDACTED-MRN]</span>, SSN <span class="redacted">[REDACTED-SSN]</span>.</p>
+        <p style="margin-top:12px">Admitted <span class="redacted">[REDACTED-DATE]</span> for acute MI. Procedure by Dr. <span class="redacted">[REDACTED-NAME]</span> at <span class="redacted">[REDACTED-FACILITY]</span>.</p>
+        <p style="margin-top:12px">Discharge stable. Follow-up cardiology in 2 weeks.</p>
+      </div>
+    </div>
+
+    <div class="risk-strip">
+      <span><strong>RISK SCORE</strong> 92 / 100</span>
+      <span><strong>PHI ELEMENTS</strong> 7 detected</span>
+      <span><strong>WEIGHTED</strong> SSN 28 · MRN 20 · DOB 16</span>
+      <span><strong>STATUS</strong> All redacted</span>
+    </div>
+
+    <div class="script-bites">
+      <div class="bite">
+        <div class="bite-time">0:00 — 0:30  ·  THE HOOK</div>
+        <div class="bite-h">A real question, not a pitch</div>
+        <p class="bite-q">"Would you let your hospital paste a patient's name, SSN, and date of birth into ChatGPT? Most clinicians wouldn't either. But survey data says it's already happening — quietly, in browser tabs, every day."</p>
+      </div>
+      <div class="bite">
+        <div class="bite-time">1:15 — 2:30  ·  THE PIPELINE</div>
+        <div class="bite-h">Eight steps. Three gates. One audit.</div>
+        <p class="bite-q">"Nothing moves to the next step without explicit human approval. That's not a setting, that's the architecture. Every action is timestamped — exportable as a compliance log. This is what a HIPAA auditor wants to see."</p>
+      </div>
+      <div class="bite">
+        <div class="bite-time">2:30 — 3:30  ·  THE EDGE CASES</div>
+        <div class="bite-h">Five languages. Custom rules. Live tested.</div>
+        <p class="bite-q">"What about facility-specific PHI — employee IDs, internal codes? Custom rules. Live regex testing right in the browser. Five languages, including Hindi, for global healthcare networks."</p>
+      </div>
+      <div class="bite">
+        <div class="bite-time">4:15 — 5:00  ·  THE CLOSE</div>
+        <div class="bite-h">The pattern is the product</div>
+        <p class="bite-q">"Scan → Detect → Redact → Process → Review → Approve isn't just a healthcare pattern. Drop in legal data, PCI, FERPA, classified content — same six steps, same three gates, same audit trail."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESPONSIBLE AI
+============================================================ -->
+<section class="section" id="responsible">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">Responsible AI</div>
+    <h2>Built for the rubric, <em>not as an afterthought.</em></h2>
+    <p class="section-lede">Six pillars, each met by an architectural choice rather than a policy line. Auditors check architecture, not aspirations.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-icon">🔒</div>
+        <div class="pillar-h">PHI Minimization</div>
+        <p class="pillar-b">Detected and redacted before any external call. Architecture, not policy.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">👤</div>
+        <div class="pillar-h">Human in the Loop</div>
+        <p class="pillar-b">Three mandatory checkpoints. Nothing exports without explicit approval at each.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">📋</div>
+        <div class="pillar-h">Auditability</div>
+        <p class="pillar-b">Timestamped log of every action. Exportable as compliance evidence in one click.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⚖️</div>
+        <div class="pillar-h">HIPAA Alignment</div>
+        <p class="pillar-b">Maps to §164.312 audit controls and the minimum-necessary rule by design.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🌐</div>
+        <div class="pillar-h">Inclusivity</div>
+        <p class="pillar-b">Five languages including Hindi/Indic. Custom regex rules for facility-specific PHI.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-h">Fail-Safe Defaults</div>
+        <p class="pillar-b">No PHI persistence. Session-only memory. API keys never leave the browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     IMPACT
+============================================================ -->
+<section class="section impact-section" id="impact">
+  <div class="section-inner reveal">
+    <div class="section-eyebrow">Why this wins</div>
+    <h2>From idea to <em>impact —</em> measured.</h2>
+    <p class="section-lede">Three numbers worth defending. The first is what clinicians feel. The second is what compliance demands. The third is what auditors check.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">70-90%</div>
+        <div class="stat-label">faster clinical documentation</div>
+        <div class="stat-sub">Summarization in seconds, not minutes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">PHI tokens transmitted to the cloud</div>
+        <div class="stat-sub">Browser-side scrub, by design</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">actions covered by audit</div>
+        <div class="stat-sub">Every step timestamped & defensible</div>
+      </div>
+    </div>
+
+    <div class="reuse-band">
+      <div class="reuse-eyebrow">The pattern is the product</div>
+      <div class="reuse-h">Scan → Detect → Redact → Process → Review → Approve works for any regulated data.</div>
+      <div class="reuse-grid">
+        <div class="reuse-pill"><div class="reuse-name">Legal</div><div class="reuse-desc">Privileged client data</div></div>
+        <div class="reuse-pill"><div class="reuse-name">Finance</div><div class="reuse-desc">PCI / cardholder data</div></div>
+        <div class="reuse-pill"><div class="reuse-name">Education</div><div class="reuse-desc">FERPA student records</div></div>
+        <div class="reuse-pill"><div class="reuse-name">Government</div><div class="reuse-desc">Classified content</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL
+============================================================ -->
+<section class="final">
+  <div class="final-ghost">
+    <div class="final-eye-l"></div>
+    <div class="final-eye-r"></div>
+  </div>
+  <h2>From idea to impact —<br>a repeatable pattern for safe AI in <em>every regulated industry.</em></h2>
+  <div class="final-tag">"Your PHI was here. Now it's a ghost."</div>
+  <div class="final-team">GHOST PROTOCOL  ·  Shweta Chandra · Bharath Kilari · Justin Job · Lokesh Raj</div>
+</section>
+
+<footer>
+  Built for the AI Booth Expo · Women in Tech Summit · Responsible AI in Healthcare
+</footer>
+
+<script>
+// Reveal-on-scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
